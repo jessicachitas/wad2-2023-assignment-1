@@ -26,13 +26,23 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
 
   return (
     <>
+    <Typography variant="h4" component="p">
+        <span sx={{ fontSize: "1.5rem" }}>{`   "${movie.tagline}"`} </span>
+      </Typography>
+
+      <br />
+
       <Typography variant="h5" component="h3">
         Overview
       </Typography>
 
+      <br />
+
       <Typography variant="h6" component="p">
         {movie.overview}
       </Typography>
+
+      <br />
 
       <Paper 
         component="ul" 
@@ -62,6 +72,39 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         ))}
       </Paper>
 
+      <Paper 
+        component="ul" 
+        sx={{...root}}
+      >
+
+    <li>
+      <Chip label="Production Companies" sx={{ ...chip }} color="primary" />
+    </li>
+      {movie.production_companies.map((g, index) => (
+        <li key={`${g.name}-${index}`}>
+          <Chip label={g.name} sx={{ ...chip }} />
+          <Chip label={g.origin_country} sx={{ ...chip }} />
+        </li>
+    ))}
+
+      </Paper>
+
+      <Paper 
+        component="ul" 
+        sx={{...root}}
+      >
+
+    <li>
+      <Chip label="Language" sx={{ ...chip }} color="primary" />
+    </li>
+      {movie.spoken_languages.map((g) => (
+        <li key={`${g.name}`}>
+          <Chip label={g.name} sx={{ ...chip }} />
+        </li>
+    ))}
+
+      </Paper>
+
       <Paper component="ul" sx={{...root}}>
         <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
         <Chip
@@ -74,6 +117,7 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         />
         <Chip label={`Released: ${movie.release_date}`} />
       </Paper>
+
       <Fab
         color="secondary"
         variant="extended"
@@ -85,8 +129,8 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         }}
       >
         <NavigationIcon />
-        Reviews
-      </Fab>
+        Reviews 
+        </Fab>
       <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
         <MovieReviews movie={movie} />
       </Drawer>
